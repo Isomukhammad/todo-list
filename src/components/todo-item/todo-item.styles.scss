@@ -1,0 +1,31 @@
+.todo-item-container{
+    background-color: #423A6F;
+    border: 1px solid #3B3463;
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+
+    input{
+        width: 100%;
+        background-color: transparent;
+        border-style: none;
+        font-size: 1.2em;
+        font-weight: 500;
+
+        &:focus{
+            outline: none;
+        }
+    }
+
+    .delete-icon{
+        cursor: pointer;
+        padding: 1em;
+
+        &:hover{
+            background-color: #3a3458;
+        }
+
+        &:active{
+            background-color: #292636;
+        }
+    }
+}
