@@ -2,18 +2,14 @@ import { useEffect, useState } from "react";
 import { addList, getList } from "../../utils/dataManipulation";
 import ToDoItem from "../todo-item/todo-item.component";
 
-const ToDoList = () => {
-    const [list, setList] = useState([]);
+import './todo-list.styles.scss';
 
-    useEffect(() => {
-        getList().then(data => setList(data));
-    }, [])
-
+const ToDoList = ({list, setList}) => {
     return(
-        <div className="todo-list">
+        <div className="todo-list-container">
         {
             list.map(task => (
-                <ToDoItem key = {task.id} title = {task.title}/>
+                <ToDoItem key = {task.id} id = {task.id} title = {task.title} list = {list} setList = {setList}/>
             ))
         }
         </div>

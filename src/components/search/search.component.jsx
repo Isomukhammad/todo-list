@@ -2,7 +2,7 @@ import {useForm} from 'react-hook-form';
 
 import './search.styles.scss';
 
-const Search = () => {
+const Search = ({setSearchField}) => {
     const {
         register,
         formState: {
@@ -12,14 +12,16 @@ const Search = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        alert(JSON.stringify(data))
+        console.log(data)
     }
 
     return(
         <div className = "search-container">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input 
-                    {...register('description')}  
+                    {...register('search', {
+                        onChange: (e) => {setSearchField(e.target.value)}
+                    })}
                     placeholder = "search todos"  
                 />   
             </form>    

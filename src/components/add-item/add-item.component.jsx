@@ -1,18 +1,26 @@
 import {useForm} from 'react-hook-form'
+import { addList } from '../../utils/dataManipulation';
 
 import './add-item.styles.scss';
 
-const AddItem = () => {
+const AddItem = ({list, setList}) => {
     const {
         register,
         formState: {
-            errors,
+            errors
         },
         handleSubmit,
+        reset
     } = useForm();
 
     const onSubmit = (data) => {
-        alert(JSON.stringify(data))
+        const date = new Date();
+        const id = Math.round(date.getTime() / 1000);
+
+        addList(data.description, id).then(data => {
+            setList(prevVal => [...prevVal, data[0]])
+            reset();
+        })
     }
 
     return(
@@ -20,8 +28,17 @@ const AddItem = () => {
             <p>Add new todo...</p>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input 
-                    {...register('description')}  
+                    {...register('description', {
+                        required: true,
+                        minLength: {
+                            value: 5,
+                            message: 'Minimum 5 letters',
+                        }
+                    })}  
                 />   
+                <div>
+                    {errors?.description && <p className='error-message'>{errors?.description?.message}</p>}
+                </div>
             </form>  
         </div>
     )

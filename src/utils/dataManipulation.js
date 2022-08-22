@@ -12,14 +12,16 @@ export const getList= async () => {
     }
 }
 
-export const addList = () => {
+
+export const addList = async (title, id) => {
+    const task = [];
     try{
-        fetch('https://my-json-server.typicode.com/Isomukhammad/todo-list/todos', {
+        await fetch('https://my-json-server.typicode.com/Isomukhammad/todo-list/todos', {
             method: 'POST',
             body: JSON.stringify({
                 userId: 1,
-                id: 4,
-                title: "et porro tempora",
+                id: id,
+                title: title,
                 completed: true
         }),
         headers: {
@@ -27,8 +29,9 @@ export const addList = () => {
         },
         })
         .then((response) => response.json())
-        .then((json) => console.log(json));
+        .then(json => task.push(json));
         
+        return task;
     } catch(error) {
         alert('Something went wrong. Try again!');
         console.log(error);
